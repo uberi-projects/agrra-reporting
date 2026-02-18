@@ -27,3 +27,8 @@ ref_biomass <- read.csv("2026 - Atolls Report/data_provided/fish_biomass_specifi
     na.omit()
 ref_fish_species <- read.csv("2026 - Atolls Report/data_deposit/Ref_Fish_Species.csv", na.strings = na_strings)
 ref_organisms_benthic <- read.csv("2026 - Atolls Report/data_deposit/Ref_Organisms_Benthic.csv", na.strings = na_strings)
+
+## Attach BAS data --------------------------------------
+df_benthic_pim_l <- read_excel("2026 - Atolls Report/data_deposit/BAS AGRRA Benthic 2025_Clean.xlsx", na = na_strings)
+df_coral_l <- read_excel("2026 - Atolls Report/data_deposit/BAS AGRRA Coral Data 2025_Cleaned.xlsx", na = na_strings)
+df_fish_l <- read_excel("2026 - Atolls Report/data_deposit/BAS AGRRA Fish Data 2025_clean.xlsx", na = na_strings)

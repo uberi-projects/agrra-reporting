@@ -6,7 +6,10 @@ This repository stores the code for analysis of AGRRA reporting activities in Be
 
 ## 2026 - Atolls Report
 
-This project analyzes AGRRA data for Turneffe Atoll and Lighthouse Atoll, producing analyses and figures for reporting. To run this project, drop your copy of Lighthouse Atoll AGRRA data into the `data_deposit` subfolder. Turneffe data will be automatically downloaded from Dryad, so there is no need to upload this data as well. Open `project_run.r`, and run the script. Results will be located in the `outputs` subfolder.
+This project analyzes AGRRA data for Turneffe Atoll and Lighthouse Atoll, producing analyses and figures for reporting. To run this project, drop your copy of Lighthouse Atoll AGRRA data into the `data_deposit` subfolder. Turneffe data will be automatically downloaded from Dryad, so there is no need to upload this data as well. Open `project_run.r`, and run the script. Results will be located in the `outputs` subfolder. Required AGRRA files for BAS include:
+  1. BAS AGRRA Benthic 2025_Clean.xlsx
+  2. BAS AGRRA Coral Data 2025_Cleaned.xlsx
+  3. BAS AGRRA Fish Data 2025_clean.xlsx
 
 #### Files
 - `packages_load.r` - installs (if necessary) and attaches necessary R packages
