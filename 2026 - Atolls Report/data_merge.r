@@ -37,9 +37,10 @@ df_coral <- df_coral_merged %>%
     select(Atoll, Site, Transect, Organism)
 
 ## Merge Fish Data --------------------------------------
-df_fish_l_restructured() <- df_fish_l %>%
-    mutate(across(c(`2.5`, `7.5`, `15.5`, `25.5`, `35.5`, `>40`), as.integer)) %>%
-    pivot_longer(cols = c(`2.5`, `7.5`, `15.5`, `25.5`, `35.5`, `>40`), names_to = "Size_Class", values_to = "Observations") %>%
+df_fish_l_restructured <- df_fish_l %>%
+    rename(`40` = `>40`) %>%
+    mutate(across(c(`2.5`, `7.5`, `15.5`, `25.5`, `35.5`, `40`), as.integer)) %>%
+    pivot_longer(cols = c(`2.5`, `7.5`, `15.5`, `25.5`, `35.5`, `40`), names_to = "Size_Class", values_to = "Observations") %>%
     mutate(Observations = replace_na(Observations, 0)) %>%
     mutate(
         Year = as.integer(Year), Date = as.character(Date), Locality = NA, Site = Site, Transect = Transect,
@@ -51,6 +52,7 @@ df_fish_l_restructured() <- df_fish_l %>%
 df_fish_merged <- bind_rows(mutate(df_fish_t, Atoll = "Turneffe", Size_Class = as.character(Size_Class)), mutate(df_fish_l_restructured, Atoll = "Lighthouse"))
 df_fish <- df_fish_merged %>%
     filter(Year == 2025) %>%
-    left_join(ref_fish_species, by = "Fish_Scientific") %>%
-    left_join(ref_biomass, by = c("Fish_Scientific" = "Binomial")) %>%
-    select(Atoll, Site, Transect, Fish_Scientific, Size_Class, Observations, LWRa, LWRb, LWRconv)
+    left_join(ref_fish_species, by = "Fish") %>%
+    left_join(ref_biomass, by = c("Fish_Scientific.y" = "Binomial")) %>%
+    mutate(Size_Class = as.numeric(Size_Class)) %>%
+    select(Atoll, Site, Transect, Fish_Family, Size_Class, Observations, LWRa, LWRb, LWRconv)
