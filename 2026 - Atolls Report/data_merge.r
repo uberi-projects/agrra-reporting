@@ -14,7 +14,8 @@ df_benthic_pim_merged <- bind_rows(mutate(df_benthic_pim_t, Atoll = "Turneffe"),
 df_benthic_pim <- df_benthic_pim_merged %>%
     filter(Year == 2025) %>%
     left_join(ref_organisms_benthic %>% select(Organism, Organism_Bucket = AGRRA_Bucket), by = "Organism") %>%
-    left_join(ref_organisms_benthic %>% select(Organism, Secondary_Bucket = AGRRA_Bucket), by = c("Secondary" = "Organism"))
+    left_join(ref_organisms_benthic %>% select(Organism, Secondary_Bucket = AGRRA_Bucket), by = c("Secondary" = "Organism")) %>%
+    select(Atoll, Site, Transect, Point, Organism, Secondary, Organism_Bucket, Secondary_Bucket)
 
 ## Merge Coral Community Data --------------------------------------
 df_coral_l_restructured <- df_coral_l %>%
@@ -51,4 +52,5 @@ df_fish_merged <- bind_rows(mutate(df_fish_t, Atoll = "Turneffe", Size_Class = a
 df_fish <- df_fish_merged %>%
     filter(Year == 2025) %>%
     left_join(ref_fish_species, by = "Fish_Scientific") %>%
-    left_join(ref_biomass, by = c("Fish_Scientific" = "Binomial"))
+    left_join(ref_biomass, by = c("Fish_Scientific" = "Binomial")) %>%
+    select(Atoll, Site, Transect, Fish_Scientific, Size_Class, Observations, LWRa, LWRb, LWRconv)
