@@ -19,7 +19,7 @@ This project analyzes AGRRA data for Turneffe Atoll and Lighthouse Atoll, produc
   1. Downloads TAMR AGRRA data from Dryad and attaches it
   2. Attaches Lighthouse AGRRA data from `data_deposit`
   3. Attaches reference data from `data_provided`
-- `data_merge.r` - Harmonizes the data between both atolls in master dfs for each methodology
+- `data_merge.r` - Harmonizes the data between both atolls in master dfs for each methodology and merges in reference data
 - `data_analysis.r` - Analyzes the AGRRA data, calculating indicators and key observations for both atolls
 - `results_export.r` - Exports the results of the analysis into the `outputs` folder
 

@@ -26,7 +26,9 @@ ref_biomass <- read.csv("2026 - Atolls Report/data_provided/fish_biomass_specifi
     ) %>%
     na.omit()
 ref_fish_species <- read.csv("2026 - Atolls Report/data_deposit/Ref_Fish_Species.csv", na.strings = na_strings)
-ref_organisms_benthic <- read.csv("2026 - Atolls Report/data_deposit/Ref_Organisms_Benthic.csv", na.strings = na_strings)
+ref_organisms_benthic <- read.csv("2026 - Atolls Report/data_deposit/Ref_Organisms_Benthic.csv", na.strings = na_strings) %>%
+    filter(!is.na(Organism)) %>%
+    distinct(Organism, AGRRA_Bucket)
 
 ## Attach BAS data --------------------------------------
 df_benthic_pim_l <- read_excel("2026 - Atolls Report/data_deposit/BASBenthos_CLEAN_Full.xlsx", na = na_strings)
