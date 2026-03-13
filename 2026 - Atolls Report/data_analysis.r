@@ -12,13 +12,16 @@ df_benthic_pim_cover_lcc <- df_benthic_pim_cover %>%
     group_by(Atoll, Site, Transect) %>%
     mutate(Coral_Cover_Tran = 100 * sum(Coral_Presence) / n()) %>%
     group_by(Atoll, Site) %>%
-    mutate(Coral_Cover_Site = mean(Coral_Cover_Tran))
+    mutate(
+        Coral_Cover_Site = mean(Coral_Cover_Tran),
+        Coral_Cover_Site_Median = median(Coral_Cover_Tran)
+    )
 df_benthic_lcc <- df_benthic_pim_cover_lcc %>%
     group_by(Atoll) %>%
     summarize(
         `Min (Site)` = min(Coral_Cover_Site),
         `Av. (Site)` = mean(Coral_Cover_Site),
-        `Median (Site)` = median(Coral_Cover_Site),
+        `Median (Site)` = mean(Coral_Cover_Site_Median),
         `Max (Site)` = max(Coral_Cover_Site),
         `Min (Transect)` = min(Coral_Cover_Tran),
         `Av. (Transect)` = mean(Coral_Cover_Tran),
@@ -40,13 +43,16 @@ df_benthic_pim_cover_fma <- df_benthic_pim_cover %>%
     group_by(Atoll, Site, Transect) %>%
     mutate(Algae_Cover_Tran = 100 * sum(Algae_Presence) / n()) %>%
     group_by(Atoll, Site) %>%
-    mutate(Algae_Cover_Site = mean(Algae_Cover_Tran))
+    mutate(
+        Algae_Cover_Site = mean(Algae_Cover_Tran),
+        Algae_Cover_Site_Median = median(Algae_Cover_Tran)
+    )
 df_benthic_fma <- df_benthic_pim_cover_fma %>%
     group_by(Atoll) %>%
     summarize(
         `Min (Site)` = min(Algae_Cover_Site),
         `Av. (Site)` = mean(Algae_Cover_Site),
-        `Median (Site)` = median(Algae_Cover_Site),
+        `Median (Site)` = mean(Algae_Cover_Site_Median),
         `Max (Site)` = max(Algae_Cover_Site),
         `Min (Transect)` = min(Algae_Cover_Tran),
         `Av. (Transect)` = mean(Algae_Cover_Tran),
@@ -70,6 +76,7 @@ df_fish_biomass_obs <- df_fish %>% # Observation-level
         Fish_Family == "Acanthuridae" ~ "H",
         Fish_Family == "Scaridae" ~ "H",
         Fish_Family == "Epinephelidae" ~ "C",
+        Fish_Family == "Serranidae" ~ "C",
         Fish_Family == "Lutjanidae" ~ "C"
     )) %>%
     filter(!is.na(Biomass_Category))
@@ -91,4 +98,16 @@ df_fish_biomass_transect <- distinct_fish_transects %>% # Transect-level
     )
 df_fish_biomass_site <- df_fish_biomass_transect %>% # Site-level
     group_by(Atoll, Site, Biomass_Category) %>%
-    summarize(Biomass_Sites_Density = mean(Biomass_Transects_Density))
+    summarize(
+        Biomass_Sites_Density = mean(Biomass_Transects_Density),
+        Biomass_Sites_Density_Median = median(Biomass_Transects_Density),
+        Biomass_Sites_Detection_Rate = mean(Biomass_Transects_Density > 0)
+    )
+df_fish_biomass_overall <- df_fish_biomass_site %>%
+    group_by(Atoll, Biomass_Category) %>%
+    summarize(
+        Biomass_Sites_Density_Min = min(Biomass_Sites_Density),
+        Biomass_Sites_Density_Max = max(Biomass_Sites_Density),
+        Biomass_Sites_Density_Median = mean(Biomass_Sites_Density_Median),
+        Biomass_Sites_Density = mean(Biomass_Sites_Density)
+    )
