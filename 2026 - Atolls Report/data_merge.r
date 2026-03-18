@@ -20,7 +20,7 @@ df_benthic_pim <- df_benthic_pim_merged %>%
 ## Merge Coral Community Data --------------------------------------
 df_coral_l_restructured <- df_coral_l %>%
     mutate(
-        Year = as.integer(2025), Date = as.character(date), Site = site, Site = NA, site_comments = NA,
+        Year = as.integer(2025), Date = as.character(date), Site = site, site_comments = NA,
         Transect = as.integer(transect), Transect_Comments = NA, Area_Surveyed = NA, Protocol = "AGRRA",
         Start_Time = NA, End_Time = NA, Start_Depth = NA, End_Depth = NA, Temp = NA, Organism = organism,
         Isolates = isolates, Depth_Top = NA, Max_Diam = NA, Max_Length = max_length, Max_Width = max_width,

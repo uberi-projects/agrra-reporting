@@ -111,3 +111,42 @@ df_fish_biomass_overall <- df_fish_biomass_site %>%
         Biomass_Sites_Density_Median = mean(Biomass_Sites_Density_Median),
         Biomass_Sites_Density = mean(Biomass_Sites_Density)
     )
+
+# Calculate live coral diversity ---------------------------
+df_coral_diversity <- df_coral %>%
+    filter(!is.na(Organism), Organism != "") %>%
+    group_by(Atoll, Site, Transect, Organism) %>%
+    summarize(
+        Abundance = n(),
+    ) %>%
+    group_by(Atoll, Site, Transect) %>%
+    mutate(
+        p_i = Abundance / sum(Abundance) # relative abundance
+    ) %>%
+    summarize(
+        Diversity = -sum(p_i * log(p_i), na.rm = TRUE),
+        Richness = n_distinct(Organism),
+    ) %>%
+    group_by(Atoll, Site) %>%
+    summarize(
+        Diversity = mean(Diversity, na.rm = TRUE),
+        Richness = mean(Richness, na.rm = TRUE),
+    )
+df_coral_diversity_summary <- df_coral_diversity %>%
+    group_by(Atoll, Site) %>%
+    summarize(
+        Diversity = mean(Diversity, na.rm = TRUE),
+        Richness = mean(Richness, na.rm = TRUE),
+    ) %>%
+    group_by(Atoll) %>%
+    summarize(
+        `Diversity Min` = min(Diversity, na.rm = TRUE),
+        `Diversity Av.` = mean(Diversity, na.rm = TRUE),
+        `Diversity Median` = median(Diversity, na.rm = TRUE),
+        `Diversity Max` = max(Diversity, na.rm = TRUE),
+        `Richness Min` = min(Richness, na.rm = TRUE),
+        `Richness Av.` = mean(Richness, na.rm = TRUE),
+        `Richness Median` = median(Richness, na.rm = TRUE),
+        `Richness Max` = max(Richness, na.rm = TRUE),
+    ) %>%
+    mutate(across(where(is.numeric), ~ round(.x, 2)))
