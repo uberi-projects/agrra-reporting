@@ -22,9 +22,24 @@ This project analyzes AGRRA data for Turneffe Atoll and Lighthouse Atoll, produc
 - `data_merge.r` - Harmonizes the data between both atolls in master dfs for each methodology and merges in reference data
 - `data_analysis.r` - Analyzes the AGRRA data, calculating indicators and key observations for both atolls
 - `results_export.r` - Exports the results of the analysis into the `outputs` folder
+- `results_visualize.r` - Generates plots and figures from the analysis results into the `outputs` folder
 
-#### External
-The external repository `uberi-projects/RHI-calculations-Turneffe` on GitHub is sourced within this project to access the `functions_define.r` script functions
+## 2026 - HRI Data Presentation
 
-#### AI Disclaimer
-All parts of this project were conceptualized and planned by the UB-ERI team. To support implementation, Claude Code (model Sonnet 4.6) was used to review code and outputs, and check documentation as prompted by the team. The UB-ERI team retains full responsibility for this work, including any mistakes or oversights, and does not defer responsibility to the AI model.
+This project analyzes AGRRA data for Turneffe Atoll across two survey years (2023 and 2025), producing analyses and figures for year-over-year comparison. Turneffe data will be automatically downloaded from Dryad. Open `project_run.r`, and run the script. Results will be located in the `outputs` subfolder.
+
+#### Files
+- `packages_load.r` - installs (if necessary) and attaches necessary R packages
+- `data_attach.r`
+  1. Downloads TAMR AGRRA data from Dryad and attaches it
+  2. Attaches reference data from `data_provided`
+- `data_merge.r` - Filters Turneffe data for 2023 and 2025, merging in reference data across all methodologies
+- `data_analysis.r` - Analyzes the AGRRA data, calculating indicators and key observations for both years
+- `results_export.r` - Exports the results of the analysis into the `outputs` folder
+- `results_visualize.r` - Generates plots and figures from the analysis results into the `outputs` folder
+
+## External
+The external repository `uberi-projects/RHI-calculations-Turneffe` on GitHub is sourced within this repository to access the `functions_define.r` script functions
+
+## AI Disclaimer
+All projects and parts of this repository were conceptualized and planned by the UB-ERI team. To support implementation, Claude Code (model Sonnet 4.6) was used to review code and outputs, and check documentation as prompted by the team. The UB-ERI team retains full responsibility for this work, including any mistakes or oversights, and does not defer responsibility to the AI model.
