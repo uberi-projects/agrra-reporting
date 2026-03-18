@@ -113,7 +113,7 @@ df_fish_biomass_overall <- df_fish_biomass_site %>%
     )
 
 # Calculate live coral diversity ---------------------------
-df_coral_diversity <- df_coral %>%
+df_coral_diversity_transect <- df_coral %>%
     filter(!is.na(Organism), Organism != "") %>%
     group_by(Year, Site, Transect, Organism) %>%
     summarize(
@@ -126,7 +126,8 @@ df_coral_diversity <- df_coral %>%
     summarize(
         Diversity = -sum(p_i * log(p_i), na.rm = TRUE),
         Richness = n_distinct(Organism),
-    ) %>%
+    )
+df_coral_diversity <- df_coral_diversity_transect %>%
     group_by(Year, Site) %>%
     summarize(
         Diversity = mean(Diversity, na.rm = TRUE),

@@ -11,7 +11,7 @@ df_benthic_pim <- df_benthic_pim_merged %>%
 ## Merge Coral Community Data --------------------------------------
 df_coral_merged <- df_coral_t
 df_coral <- df_coral_merged %>%
-    filter(Year %in% c(2023, 2025)) %>%
+    filter(Year %in% c(2021, 2025)) %>%
     select(Year, Site, Transect, Organism)
 
 ## Merge Fish Data --------------------------------------
