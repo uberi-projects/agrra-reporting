@@ -73,3 +73,71 @@ plot_turneffe_biomass <- df_fish_biomass_transect %>%
     theme_pubclean() +
     theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
 ggsave("2026 - Atolls Report/outputs/plot_turneffe_biomass.png", plot_turneffe_biomass, width = 12, height = 6, dpi = 150)
+
+## Create Coral Cover Boxplots  ------------------------
+df_coral_transect <- df_benthic_pim_cover_lcc %>%
+    distinct(Atoll, Site, Transect, Coral_Cover_Tran)
+plot_coral_cover <- df_coral_transect %>%
+    ggplot(aes(x = Site, y = Coral_Cover_Tran)) +
+    geom_boxplot(outlier.shape = NA, fill = "grey90", colour = "grey40") +
+    geom_jitter(width = 0.15, size = 1.2, alpha = 0.5, colour = "grey40") +
+    stat_summary(aes(colour = "Mean"), fun = mean, geom = "point", shape = 18, size = 3) +
+    stat_summary(aes(colour = "Median"), fun = median, geom = "point", shape = 16, size = 2.5) +
+    facet_wrap(~Atoll, scales = "free_x") +
+    scale_color_manual(name = "Metric", values = palette) +
+    labs(
+        x = "Site",
+        y = "Coral Cover (%)"
+    ) +
+    custom_theme +
+    theme_pubclean() +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+ggsave("2026 - Atolls Report/outputs/plot_coral_cover.png", plot_coral_cover, width = 12, height = 6, dpi = 150)
+
+## Create Algae Cover Boxplots  ------------------------
+df_algae_transect <- df_benthic_pim_cover_fma %>%
+    distinct(Atoll, Site, Transect, Algae_Cover_Tran)
+plot_algae_cover <- df_algae_transect %>%
+    ggplot(aes(x = Site, y = Algae_Cover_Tran)) +
+    geom_boxplot(outlier.shape = NA, fill = "grey90", colour = "grey40") +
+    geom_jitter(width = 0.15, size = 1.2, alpha = 0.5, colour = "grey40") +
+    stat_summary(aes(colour = "Mean"), fun = mean, geom = "point", shape = 18, size = 3) +
+    stat_summary(aes(colour = "Median"), fun = median, geom = "point", shape = 16, size = 2.5) +
+    facet_wrap(~Atoll, scales = "free_x") +
+    scale_color_manual(name = "Metric", values = palette) +
+    labs(
+        x = "Site",
+        y = "Algae Cover (%)"
+    ) +
+    custom_theme +
+    theme_pubclean() +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+ggsave("2026 - Atolls Report/outputs/plot_algae_cover.png", plot_algae_cover, width = 12, height = 6, dpi = 150)
+
+## Create Turneffe Benthic Cover Boxplots (Coral & Algae)  ------------------------
+df_turneffe_benthic <- bind_rows(
+    df_coral_transect %>%
+        filter(Atoll == "Turneffe") %>%
+        select(Atoll, Site, Transect, Benthic_Cover = Coral_Cover_Tran) %>%
+        mutate(Benthic_Type = "Coral"),
+    df_algae_transect %>%
+        filter(Atoll == "Turneffe") %>%
+        select(Atoll, Site, Transect, Benthic_Cover = Algae_Cover_Tran) %>%
+        mutate(Benthic_Type = "Algae")
+)
+plot_turneffe_benthic <- df_turneffe_benthic %>%
+    ggplot(aes(x = Site, y = Benthic_Cover)) +
+    geom_boxplot(outlier.shape = NA, fill = "grey90", colour = "grey40") +
+    geom_jitter(width = 0.15, size = 1.2, alpha = 0.5, colour = "grey40") +
+    stat_summary(aes(colour = "Mean"), fun = mean, geom = "point", shape = 18, size = 3) +
+    stat_summary(aes(colour = "Median"), fun = median, geom = "point", shape = 16, size = 2.5) +
+    facet_wrap(~Benthic_Type, scales = "free") +
+    scale_color_manual(name = "Metric", values = palette) +
+    labs(
+        x = "Site",
+        y = "Cover (%)"
+    ) +
+    custom_theme +
+    theme_pubclean() +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+ggsave("2026 - Atolls Report/outputs/plot_turneffe_benthic.png", plot_turneffe_benthic, width = 12, height = 6, dpi = 150)
