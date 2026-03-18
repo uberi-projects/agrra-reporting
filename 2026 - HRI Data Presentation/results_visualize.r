@@ -101,8 +101,8 @@ palette_years <- c("2023" = "#007bb8", "2025" = "#E6A93A")
 plot_comm_biomass_compare <- df_fish_biomass_transect %>%
     filter(Biomass_Category == "C") %>%
     ggplot(aes(x = Site, y = Biomass_Transects_Density, fill = factor(Year), group = interaction(Site, Year))) +
-    geom_boxplot(outlier.shape = NA, colour = "black", position = position_dodge(0.75)) +
-    geom_jitter(aes(colour = factor(Year)), position = position_jitterdodge(jitter.width = 0.15, dodge.width = 0.75), size = 1.2, alpha = 0.5) +
+    geom_boxplot(outlier.shape = NA, colour = "black", alpha = 0.4, position = position_dodge(0.75)) +
+    geom_jitter(aes(colour = factor(Year)), position = position_jitterdodge(jitter.width = 0.15, dodge.width = 0.75), size = 1.2) +
     stat_summary(aes(group = factor(Year)), fun = mean, geom = "point", shape = 18, size = 3, position = position_dodge(0.75)) +
     scale_fill_manual(name = "Year", values = palette_years) +
     scale_colour_manual(name = "Year", values = palette_years) +
@@ -117,8 +117,8 @@ plot_comm_biomass_compare <- df_fish_biomass_transect %>%
 plot_herb_biomass_compare <- df_fish_biomass_transect %>%
     filter(Biomass_Category == "H") %>%
     ggplot(aes(x = Site, y = Biomass_Transects_Density, fill = factor(Year), group = interaction(Site, Year))) +
-    geom_boxplot(outlier.shape = NA, colour = "black", position = position_dodge(0.75)) +
-    geom_jitter(aes(colour = factor(Year)), position = position_jitterdodge(jitter.width = 0.15, dodge.width = 0.75), size = 1.2, alpha = 0.5) +
+    geom_boxplot(outlier.shape = NA, colour = "black", alpha = 0.4, position = position_dodge(0.75)) +
+    geom_jitter(aes(colour = factor(Year)), position = position_jitterdodge(jitter.width = 0.15, dodge.width = 0.75), size = 1.2) +
     stat_summary(aes(group = factor(Year)), fun = mean, geom = "point", shape = 18, size = 3, position = position_dodge(0.75)) +
     scale_fill_manual(name = "Year", values = palette_years) +
     scale_colour_manual(name = "Year", values = palette_years) +
@@ -132,8 +132,8 @@ plot_herb_biomass_compare <- df_fish_biomass_transect %>%
 
 plot_coral_cover_compare <- df_coral_transect %>%
     ggplot(aes(x = Site, y = Coral_Cover_Tran, fill = factor(Year), group = interaction(Site, Year))) +
-    geom_boxplot(outlier.shape = NA, colour = "black", position = position_dodge(0.75)) +
-    geom_jitter(aes(colour = factor(Year)), position = position_jitterdodge(jitter.width = 0.15, dodge.width = 0.75), size = 1.2, alpha = 0.5) +
+    geom_boxplot(outlier.shape = NA, colour = "black", alpha = 0.4, position = position_dodge(0.75)) +
+    geom_jitter(aes(colour = factor(Year)), position = position_jitterdodge(jitter.width = 0.15, dodge.width = 0.75), size = 1.2) +
     stat_summary(aes(group = factor(Year)), fun = mean, geom = "point", shape = 18, size = 3, position = position_dodge(0.75)) +
     scale_fill_manual(name = "Year", values = palette_years) +
     scale_colour_manual(name = "Year", values = palette_years) +
@@ -147,8 +147,8 @@ plot_coral_cover_compare <- df_coral_transect %>%
 
 plot_algae_cover_compare <- df_algae_transect %>%
     ggplot(aes(x = Site, y = Algae_Cover_Tran, fill = factor(Year), group = interaction(Site, Year))) +
-    geom_boxplot(outlier.shape = NA, colour = "black", position = position_dodge(0.75)) +
-    geom_jitter(aes(colour = factor(Year)), position = position_jitterdodge(jitter.width = 0.15, dodge.width = 0.75), size = 1.2, alpha = 0.5) +
+    geom_boxplot(outlier.shape = NA, colour = "black", alpha = 0.4, position = position_dodge(0.75)) +
+    geom_jitter(aes(colour = factor(Year)), position = position_jitterdodge(jitter.width = 0.15, dodge.width = 0.75), size = 1.2) +
     stat_summary(aes(group = factor(Year)), fun = mean, geom = "point", shape = 18, size = 3, position = position_dodge(0.75)) +
     scale_fill_manual(name = "Year", values = palette_years) +
     scale_colour_manual(name = "Year", values = palette_years) +
@@ -164,8 +164,8 @@ palette_years_div <- c("2021" = "#007bb8", "2025" = "#E6A93A")
 
 plot_diversity_compare <- df_coral_diversity %>%
     ggplot(aes(x = factor(Year), y = Diversity, fill = factor(Year))) +
-    geom_boxplot(outlier.shape = NA, colour = "black") +
-    geom_jitter(aes(colour = factor(Year)), width = 0.15, size = 2, alpha = 0.7) +
+    geom_boxplot(outlier.shape = NA, colour = "black", alpha = 0.4) +
+    geom_jitter(aes(colour = factor(Year)), width = 0.15, size = 2) +
     stat_summary(fun = mean, geom = "point", shape = 18, size = 4) +
     scale_fill_manual(name = "Year", values = palette_years_div) +
     scale_colour_manual(name = "Year", values = palette_years_div) +
@@ -176,8 +176,26 @@ plot_diversity_compare <- df_coral_diversity %>%
     custom_theme +
     theme_pubclean()
 
+plot_recruits_compare <- df_recruits_site %>%
+    pivot_longer(cols = c(All, Small, Large), names_to = "Recruit_Type", values_to = "Density") %>%
+    mutate(Recruit_Type = factor(Recruit_Type, levels = c("All", "Small", "Large"))) %>%
+    ggplot(aes(x = factor(Year), y = Density, fill = factor(Year))) +
+    geom_boxplot(outlier.shape = NA, colour = "black", alpha = 0.4) +
+    geom_jitter(aes(colour = factor(Year)), width = 0.15, size = 2) +
+    stat_summary(fun = mean, geom = "point", shape = 18, size = 4) +
+    facet_wrap(~Recruit_Type) +
+    scale_fill_manual(name = "Year", values = palette_years) +
+    scale_colour_manual(name = "Year", values = palette_years) +
+    labs(
+        x = "Year",
+        y = expression("Recruit density (recruits / m"^2 * ")")
+    ) +
+    custom_theme +
+    theme_pubclean()
+
 ggsave("2026 - HRI Data Presentation/outputs/plot_comm_biomass_compare.png", plot_comm_biomass_compare, width = 14, height = 6, dpi = 150)
 ggsave("2026 - HRI Data Presentation/outputs/plot_herb_biomass_compare.png", plot_herb_biomass_compare, width = 14, height = 6, dpi = 150)
 ggsave("2026 - HRI Data Presentation/outputs/plot_coral_cover_compare.png", plot_coral_cover_compare, width = 14, height = 6, dpi = 150)
 ggsave("2026 - HRI Data Presentation/outputs/plot_algae_cover_compare.png", plot_algae_cover_compare, width = 14, height = 6, dpi = 150)
 ggsave("2026 - HRI Data Presentation/outputs/plot_diversity_compare.png", plot_diversity_compare, width = 14, height = 6, dpi = 150)
+ggsave("2026 - HRI Data Presentation/outputs/plot_recruits_compare.png", plot_recruits_compare, width = 14, height = 6, dpi = 150)

@@ -17,6 +17,7 @@ if (dir.exists("2026 - HRI Data Presentation/data_deposit") && length(list.files
 df_benthic_pim_t <- read.csv("2026 - HRI Data Presentation/data_deposit/Master_Benthic_PIM_2010-2025.csv", na.strings = na_strings)
 df_coral_t <- read.csv("2026 - HRI Data Presentation/data_deposit/Master_Coral_Community_2010-2025.csv", na.strings = na_strings)
 df_fish_t <- read.csv("2026 - HRI Data Presentation/data_deposit/Master_Fish_Survey_2010-2025.csv", na.strings = na_strings)
+df_recruits_t <- read.csv("2026 - HRI Data Presentation/data_deposit/Master_Benthic_Recruit_2023-2025.csv", na.strings = na_strings)
 
 ## Attach reference data --------------------------------------
 ref_biomass <- read.csv("2026 - HRI Data Presentation/data_provided/fish_biomass_specification.csv") %>%

@@ -151,3 +151,19 @@ df_coral_diversity_summary <- df_coral_diversity %>%
         `Richness Max` = max(Richness, na.rm = TRUE),
     ) %>%
     mutate(across(where(is.numeric), ~ round(.x, 2)))
+
+# Calculate recruit density ---------------------------
+df_recruits_quadrat <- df_recruits %>%
+    group_by(Year, Site, Transect, Quadrat) %>%
+    summarize(
+        Recruits = sum(Num, na.rm = TRUE),
+        `Small Recruits` = sum(Num[Size == "SR"], na.rm = TRUE),
+        `Large Recruits` = sum(Num[Size == "LR"], na.rm = TRUE)
+    )
+df_recruits_site <- df_recruits_quadrat %>%
+    group_by(Year, Site) %>%
+    summarize( # calculate density per meter
+        All = sum(Recruits) / 25,
+        Small = sum(`Small Recruits`) / 25,
+        Large = sum(`Large Recruits`) / 25
+    )
