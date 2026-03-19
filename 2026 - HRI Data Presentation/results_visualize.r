@@ -23,7 +23,7 @@ custom_theme <- theme(
 plot_comm_biomass <- df_fish_biomass_transect %>%
     filter(Biomass_Category == "C") %>%
     ggplot(aes(x = Site, y = Biomass_Transects_Density)) +
-    geom_boxplot(outlier.shape = NA, fill = "grey90", colour = "grey40") +
+    geom_boxplot(outlier.shape = 4, outlier.colour = "black", outlier.size = 3, outlier.stroke = 1.5, fill = "grey90", colour = "grey40") +
     geom_jitter(width = 0.15, size = 1.2, alpha = 0.5, colour = "grey40") +
     stat_summary(aes(colour = "Mean"), fun = mean, geom = "point", shape = 18, size = 3) +
     stat_summary(aes(colour = "Median"), fun = median, geom = "point", shape = 16, size = 2.5) +
@@ -39,7 +39,7 @@ plot_comm_biomass <- df_fish_biomass_transect %>%
 plot_herb_biomass <- df_fish_biomass_transect %>%
     filter(Biomass_Category == "H") %>%
     ggplot(aes(x = Site, y = Biomass_Transects_Density)) +
-    geom_boxplot(outlier.shape = NA, fill = "grey90", colour = "grey40") +
+    geom_boxplot(outlier.shape = 4, outlier.colour = "black", outlier.size = 3, outlier.stroke = 1.5, fill = "grey90", colour = "grey40") +
     geom_jitter(width = 0.15, size = 1.2, alpha = 0.5, colour = "grey40") +
     stat_summary(aes(colour = "Mean"), fun = mean, geom = "point", shape = 18, size = 3) +
     stat_summary(aes(colour = "Median"), fun = median, geom = "point", shape = 16, size = 2.5) +
@@ -60,7 +60,7 @@ df_coral_transect <- df_benthic_pim_cover_lcc %>%
     distinct(Year, Site, Transect, Coral_Cover_Tran)
 plot_coral_cover <- df_coral_transect %>%
     ggplot(aes(x = Site, y = Coral_Cover_Tran)) +
-    geom_boxplot(outlier.shape = NA, fill = "grey90", colour = "grey40") +
+    geom_boxplot(outlier.shape = 4, outlier.colour = "black", outlier.size = 3, outlier.stroke = 1.5, fill = "grey90", colour = "grey40") +
     geom_jitter(width = 0.15, size = 1.2, alpha = 0.5, colour = "grey40") +
     stat_summary(aes(colour = "Mean"), fun = mean, geom = "point", shape = 18, size = 3) +
     stat_summary(aes(colour = "Median"), fun = median, geom = "point", shape = 16, size = 2.5) +
@@ -80,7 +80,7 @@ df_algae_transect <- df_benthic_pim_cover_fma %>%
     distinct(Year, Site, Transect, Algae_Cover_Tran)
 plot_algae_cover <- df_algae_transect %>%
     ggplot(aes(x = Site, y = Algae_Cover_Tran)) +
-    geom_boxplot(outlier.shape = NA, fill = "grey90", colour = "grey40") +
+    geom_boxplot(outlier.shape = 4, outlier.colour = "black", outlier.size = 3, outlier.stroke = 1.5, fill = "grey90", colour = "grey40") +
     geom_jitter(width = 0.15, size = 1.2, alpha = 0.5, colour = "grey40") +
     stat_summary(aes(colour = "Mean"), fun = mean, geom = "point", shape = 18, size = 3) +
     stat_summary(aes(colour = "Median"), fun = median, geom = "point", shape = 16, size = 2.5) +
@@ -101,7 +101,7 @@ palette_years <- c("2023" = "#007bb8", "2025" = "#E6A93A")
 plot_comm_biomass_compare <- df_fish_biomass_transect %>%
     filter(Biomass_Category == "C") %>%
     ggplot(aes(x = Site, y = Biomass_Transects_Density, fill = factor(Year), group = interaction(Site, Year))) +
-    geom_boxplot(outlier.shape = NA, colour = "black", alpha = 0.4, position = position_dodge(0.75)) +
+    geom_boxplot(outlier.shape = 4, outlier.colour = "black", outlier.size = 3, outlier.stroke = 1.5, colour = "black", alpha = 0.4, position = position_dodge(0.75)) +
     geom_jitter(aes(colour = factor(Year)), position = position_jitterdodge(jitter.width = 0.15, dodge.width = 0.75), size = 1.2) +
     stat_summary(aes(group = factor(Year)), fun = mean, geom = "point", shape = 18, size = 3, position = position_dodge(0.75)) +
     scale_fill_manual(name = "Year", values = palette_years) +
@@ -117,7 +117,7 @@ plot_comm_biomass_compare <- df_fish_biomass_transect %>%
 plot_herb_biomass_compare <- df_fish_biomass_transect %>%
     filter(Biomass_Category == "H") %>%
     ggplot(aes(x = Site, y = Biomass_Transects_Density, fill = factor(Year), group = interaction(Site, Year))) +
-    geom_boxplot(outlier.shape = NA, colour = "black", alpha = 0.4, position = position_dodge(0.75)) +
+    geom_boxplot(outlier.shape = 4, outlier.colour = "black", outlier.size = 3, outlier.stroke = 1.5, colour = "black", alpha = 0.4, position = position_dodge(0.75)) +
     geom_jitter(aes(colour = factor(Year)), position = position_jitterdodge(jitter.width = 0.15, dodge.width = 0.75), size = 1.2) +
     stat_summary(aes(group = factor(Year)), fun = mean, geom = "point", shape = 18, size = 3, position = position_dodge(0.75)) +
     scale_fill_manual(name = "Year", values = palette_years) +
@@ -132,7 +132,7 @@ plot_herb_biomass_compare <- df_fish_biomass_transect %>%
 
 plot_coral_cover_compare <- df_coral_transect %>%
     ggplot(aes(x = Site, y = Coral_Cover_Tran, fill = factor(Year), group = interaction(Site, Year))) +
-    geom_boxplot(outlier.shape = NA, colour = "black", alpha = 0.4, position = position_dodge(0.75)) +
+    geom_boxplot(outlier.shape = 4, outlier.colour = "black", outlier.size = 3, outlier.stroke = 1.5, colour = "black", alpha = 0.4, position = position_dodge(0.75)) +
     geom_jitter(aes(colour = factor(Year)), position = position_jitterdodge(jitter.width = 0.15, dodge.width = 0.75), size = 1.2) +
     stat_summary(aes(group = factor(Year)), fun = mean, geom = "point", shape = 18, size = 3, position = position_dodge(0.75)) +
     scale_fill_manual(name = "Year", values = palette_years) +
@@ -147,7 +147,7 @@ plot_coral_cover_compare <- df_coral_transect %>%
 
 plot_algae_cover_compare <- df_algae_transect %>%
     ggplot(aes(x = Site, y = Algae_Cover_Tran, fill = factor(Year), group = interaction(Site, Year))) +
-    geom_boxplot(outlier.shape = NA, colour = "black", alpha = 0.4, position = position_dodge(0.75)) +
+    geom_boxplot(outlier.shape = 4, outlier.colour = "black", outlier.size = 3, outlier.stroke = 1.5, colour = "black", alpha = 0.4, position = position_dodge(0.75)) +
     geom_jitter(aes(colour = factor(Year)), position = position_jitterdodge(jitter.width = 0.15, dodge.width = 0.75), size = 1.2) +
     stat_summary(aes(group = factor(Year)), fun = mean, geom = "point", shape = 18, size = 3, position = position_dodge(0.75)) +
     scale_fill_manual(name = "Year", values = palette_years) +
@@ -164,7 +164,7 @@ palette_years_div <- c("2021" = "#007bb8", "2025" = "#E6A93A")
 
 plot_diversity_compare <- df_coral_diversity %>%
     ggplot(aes(x = factor(Year), y = Diversity, fill = factor(Year))) +
-    geom_boxplot(outlier.shape = NA, colour = "black", alpha = 0.4) +
+    geom_boxplot(outlier.shape = 4, outlier.colour = "black", outlier.size = 3, outlier.stroke = 1.5, colour = "black", alpha = 0.4) +
     geom_jitter(aes(colour = factor(Year)), width = 0.15, size = 2) +
     stat_summary(fun = mean, geom = "point", shape = 18, size = 4) +
     scale_fill_manual(name = "Year", values = palette_years_div) +
@@ -180,7 +180,7 @@ plot_recruits_compare <- df_recruits_site %>%
     pivot_longer(cols = c(All, Small, Large), names_to = "Recruit_Type", values_to = "Density") %>%
     mutate(Recruit_Type = factor(Recruit_Type, levels = c("All", "Small", "Large"))) %>%
     ggplot(aes(x = factor(Year), y = Density, fill = factor(Year))) +
-    geom_boxplot(outlier.shape = NA, colour = "black", alpha = 0.4) +
+    geom_boxplot(outlier.shape = 4, outlier.colour = "black", outlier.size = 3, outlier.stroke = 1.5, colour = "black", alpha = 0.4) +
     geom_jitter(aes(colour = factor(Year)), width = 0.15, size = 2) +
     stat_summary(fun = mean, geom = "point", shape = 18, size = 4) +
     facet_wrap(~Recruit_Type) +
